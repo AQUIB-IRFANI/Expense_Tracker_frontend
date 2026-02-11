@@ -14,8 +14,6 @@ const Register = () => {
         { withCredentials: true },
       )
       .then(() => {
-        console.log("login");
-
         navigate("/login");
       })
       .catch((err) => {
