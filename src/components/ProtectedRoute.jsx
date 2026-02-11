@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
         timeout: 5000, // optional
       })
       .then((res) => {
-        if (res.status === 200 && res.data.username) {
+        if (res.status === 200 && res.data.userId) {
           setAuthenticated(true);
         } else {
           setAuthenticated(false);
