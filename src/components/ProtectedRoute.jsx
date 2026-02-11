@@ -8,24 +8,26 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://expense-tracker-backend-ygyi.onrender.com/api/auth/check-auth",
-        {
-          withCredentials: true,
-        },
-      )
-      .then(() => {
-        setAuthenticated(true);
+      .get("https://expense-tracker-backend-ygyi.onrender.com/api/auth/check-auth", {
+        withCredentials: true,
+        timeout: 5000, // optional
+      })
+      .then((res) => {
+        if (res.status === 200 && res.data.username) {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+        }
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log("Auth check failed:", err);
         setAuthenticated(false);
         setLoading(false);
       });
   }, []);
 
   if (loading) return <div>Loading...</div>;
-
   if (!authenticated) return <Navigate to="/login" replace />;
 
   return children;
