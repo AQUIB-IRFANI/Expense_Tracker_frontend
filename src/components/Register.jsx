@@ -15,8 +15,6 @@ const Register = () => {
     console.log(import.meta.env.VITE_API_URL);
     API.post("/api/auth/register", { ...data })
       .then(() => {
-        console.log("login");
-
         navigate("/login");
       })
       .catch((err) => {

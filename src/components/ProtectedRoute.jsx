@@ -8,18 +8,22 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     API.get("/api/auth/check-auth")
-      .then(() => {
-        setAuthenticated(true);
+      .then((res) => {
+        if (res.status === 200 && res.data.userId) {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+        }
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log("Auth check failed:", err);
         setAuthenticated(false);
         setLoading(false);
       });
   }, []);
 
   if (loading) return <div>Loading...</div>;
-
   if (!authenticated) return <Navigate to="/login" replace />;
 
   return children;
