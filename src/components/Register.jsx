@@ -1,18 +1,19 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import API from "../api";
 
 const Register = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+    email: "",
+    name: "",
+  });
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://expense-tracker-backend-ygyi.onrender.com/api/auth/register",
-        { ...data },
-        { withCredentials: true },
-      )
+    console.log(import.meta.env.VITE_API_URL);
+    API.post("/api/auth/register", { ...data })
       .then(() => {
         console.log("login");
 

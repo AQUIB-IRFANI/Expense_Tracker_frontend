@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import API from "../api";
 
 const ShowExpense = () => {
   const [expense, setExpense] = useState(null);
@@ -8,10 +8,7 @@ const ShowExpense = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`https://expense-tracker-backend-ygyi.onrender.com/expense/${id}`, {
-        withCredentials: true,
-      })
+    API.get(`/expense/${id}`)
       .then((res) => {
         setExpense(res.data);
       })
@@ -22,13 +19,7 @@ const ShowExpense = () => {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to Delete this expense?")) {
-      axios
-        .delete(
-          `https://expense-tracker-backend-ygyi.onrender.com/expense/del/${id}`,
-          {
-            withCredentials: true,
-          },
-        )
+      API.delete(`/expense/del/${id}`)
         .then(() => {
           navigate("/home");
         })

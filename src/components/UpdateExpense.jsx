@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import API from "../api";
 
 const UpdateExpense = () => {
   const [expense, setExpense] = useState({
@@ -14,10 +14,7 @@ const UpdateExpense = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`https://expense-tracker-backend-ygyi.onrender.com/expense/${id}`, {
-        withCredentials: true,
-      })
+    API.get(`/expense/${id}`)
       .then((res) => {
         setExpense({
           name: res.data.name || "",
@@ -35,14 +32,7 @@ const UpdateExpense = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .put(
-        `https://expense-tracker-backend-ygyi.onrender.com/expense/edit/${id}`,
-        expense,
-        {
-          withCredentials: true,
-        },
-      )
+    API.put(`/expense/edit/${id}`, expense)
       .then(() => {
         navigate("/show");
       })

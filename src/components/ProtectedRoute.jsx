@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api";
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://expense-tracker-backend-ygyi.onrender.com/api/auth/check-auth",
-        {
-          withCredentials: true,
-        },
-      )
+    API.get("/api/auth/check-auth")
       .then(() => {
         setAuthenticated(true);
         setLoading(false);

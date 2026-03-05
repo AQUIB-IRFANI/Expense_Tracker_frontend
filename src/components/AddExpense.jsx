@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate, useNavigation } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API from "../api";
 const AddExpense = () => {
-  const [expense, setExpense] = useState({});
+  const [expense, setExpense] = useState({
+    name: "",
+    amount: "",
+    date: "",
+    description: "",
+  });
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://expense-tracker-backend-ygyi.onrender.com/expense/add",
-        { ...expense },
-        { withCredentials: true },
-      )
+    API.post("/expense/add", { ...expense })
       .then(() => {
         navigate("/home");
       })

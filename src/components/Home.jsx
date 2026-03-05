@@ -1,17 +1,12 @@
-import axios from "axios";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import API from "../api";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    axios
-      .post(
-        "https://expense-tracker-backend-ygyi.onrender.com/api/auth/logout",
-        {},
-        { withCredentials: true },
-      )
+    API.post("/api/auth/logout", {})
       .then(() => {
         navigate("/login");
       })

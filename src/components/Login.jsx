@@ -1,21 +1,19 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import API from "../api";
 
 const Login = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://expense-tracker-backend-ygyi.onrender.com/api/auth/login",
-        {
-          username: data.username,
-          password: data.password,
-        },
-        { withCredentials: true },
-      )
+    API.post("/api/auth/login", {
+      username: data.username,
+      password: data.password,
+    })
       .then(() => {
         navigate("/home");
       })

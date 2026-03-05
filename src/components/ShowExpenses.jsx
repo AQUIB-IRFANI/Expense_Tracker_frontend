@@ -1,16 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { data, NavLink } from "react-router-dom";
+import API from "../api";
 
 const ShowExpenses = () => {
-  const [expense, setExpense] = useState([]);
+  const [expense, setExpense] = useState([{ name: "", amount: 0, date: "" }]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://expense-tracker-backend-ygyi.onrender.com/expense/", {
-        withCredentials: true,
-      })
+    API.get("/expense/")
       .then((res) => {
         setExpense(res.data);
         setLoading(false);
